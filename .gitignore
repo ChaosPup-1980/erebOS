@@ -1,0 +1,13 @@
+# LFS source archives and build artefacts
+sources/
+build/
+*.img
+*.iso
+*.tar
+*.tar.*
+*.log
+
+# Editor/system clutter
+.vscode/
+.DS_Store
+*~

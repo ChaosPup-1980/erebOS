@@ -1,0 +1,125 @@
+=== ANDY'S LFS - NITRO HOST CHECK ===
+Date: 2026-09-27T12:29:41+01:00
+
+--- OS ---
+Distribution: Ubuntu 24.04.5 LTS
+Kernel: 7.0.0-34-generic
+Architecture: x86_64
+
+--- HARDWARE ---
+Logical CPUs: 8
+CPU(s):                                  8
+On-line CPU(s) list:                     0-7
+Model name:                              Intel(R) Core(TM) i5-8300H CPU @ 2.30GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+Socket(s):                               1
+CPU(s) scaling MHz:                      89%
+NUMA node0 CPU(s):                       0-7
+
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       3.1Gi       9.2Gi       356Mi       3.8Gi        12Gi
+Swap:          4.0Gi          0B       4.0Gi
+
+--- BUILD TOOLS ---
+bash       : GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+ld         : GNU ld (GNU Binutils for Ubuntu) 2.42
+bison      : NOT FOUND
+diff       : diff (GNU diffutils) 3.10
+find       : find (GNU findutils) 4.9.0
+gawk       : NOT FOUND
+gcc        : gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+g++        : g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+grep       : grep (GNU grep) 3.11
+gzip       : gzip 1.12
+m4         : NOT FOUND
+make       : GNU Make 4.3
+patch      : GNU patch 2.7.6
+perl       : 
+python3    : Python 3.12.3
+sed        : sed (GNU sed) 4.9
+tar        : tar (GNU tar) 1.35
+texi2any   : NOT FOUND
+xz         : xz (XZ Utils) 5.4.5
+
+--- LFS REQUIRED ALIASES ---
+/bin/sh  -> /usr/bin/dash
+awk      -> /usr/bin/mawk
+yacc     -> NOT FOUND
+
+--- PTY SUPPORT ---
+UNIX 98 PTY: OK
+
+--- STORAGE ---
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p2  1.8T   66G  1.7T   4% /
+
+NAME          SIZE TYPE FSTYPE   MOUNTPOINTS
+loop0           4K loop squashfs /snap/bare/5
+loop1          74M loop squashfs /snap/core22/2437
+loop2          74M loop squashfs /snap/core22/2955
+loop3        66.8M loop squashfs /snap/core24/2124
+loop4        66.8M loop squashfs /snap/core24/1643
+loop5       261.3M loop squashfs /snap/firefox/8929
+loop6        16.5M loop squashfs /snap/firmware-updater/226
+loop7       531.4M loop squashfs /snap/gnome-42-2204/247
+loop8       251.7M loop squashfs /snap/firefox/7766
+loop9        12.7M loop squashfs /snap/firmware-updater/258
+loop10      614.5M loop squashfs /snap/gnome-46-2404/164
+loop11       91.7M loop squashfs /snap/gtk-common-themes/1535
+loop12      531.5M loop squashfs /snap/gnome-42-2204/263
+loop13        1.1G loop squashfs /snap/libreoffice/377
+loop14        402M loop squashfs /snap/mesa-2404/1839
+loop15       11.8M loop squashfs /snap/snap-store/1390
+loop16       11.8M loop squashfs /snap/snap-store/1419
+loop17       50.3M loop squashfs /snap/snapd/27738
+loop18       48.1M loop squashfs /snap/snapd/25935
+loop19        576K loop squashfs /snap/snapd-desktop-integration/343
+loop20        828K loop squashfs /snap/snapd-desktop-integration/391
+sda         931.5G disk          
+├─sda1          1G part vfat     
+└─sda2      930.5G part ext4     
+nvme0n1       1.8T disk          
+├─nvme0n1p1     1G part vfat     /boot/efi
+└─nvme0n1p2   1.8T part ext4     /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmaports
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/native
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/usr/bin/qemu-arm-static
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/packages
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/netboot
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/sccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/etc/apk/keys
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/abuild-config
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/rust
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/go
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/git
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/var/cache/distfiles
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/pmbootstrap/ccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/mnt/appstream-data
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_rootfs_asus-flo/var/cache/apk
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmaports
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/packages
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/netboot
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/sccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/etc/apk/keys
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/abuild-config
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/rust
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/go
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/git
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/var/cache/distfiles
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/pmbootstrap/ccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/mnt/appstream-data
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_native/var/cache/apk
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/usr/bin/qemu-arm-static
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/packages
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/netboot
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/sccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/etc/apk/keys
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/abuild-config
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/rust
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/go
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/git
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/var/cache/distfiles
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/pmbootstrap/ccache
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/mnt/appstream-data
+                                 /home/andy-murray/.local/var/pmbootstrap-v2406/chroot_buildroot_armv7/var/cache/apk
+                                 /
