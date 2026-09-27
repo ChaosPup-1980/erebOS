@@ -44,3 +44,11 @@ Expected final state:
 ## Important
 
 Do not perform LFS build operations unless the erebOS filesystem is mounted and LFS is set correctly.
+
+## Host Bash configuration
+
+Ubuntu's /etc/bash.bashrc is temporarily moved to
+/etc/bash.bashrc.NOUSE during active LFS build sessions to prevent
+host shell configuration from contaminating the sterile LFS environment.
+
+The erebOS start and stop scripts handle this automatically.

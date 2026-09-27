@@ -6,6 +6,11 @@ LFS="/mnt/lfs"
 
 echo "=== Closing erebOS build session ==="
 
+if [ -e /etc/bash.bashrc.NOUSE ] && [ ! -e /etc/bash.bashrc ]; then
+    echo "Restoring Ubuntu /etc/bash.bashrc..."
+    sudo mv /etc/bash.bashrc.NOUSE /etc/bash.bashrc
+fi
+
 if mountpoint -q "$LFS"; then
     echo "Unmounting erebOS build filesystem..."
     sudo umount "$LFS"

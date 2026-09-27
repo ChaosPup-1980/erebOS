@@ -8,6 +8,11 @@ LFS="/mnt/lfs"
 
 echo "=== Starting erebOS build session ==="
 
+if [ -e /etc/bash.bashrc ] && [ ! -e /etc/bash.bashrc.NOUSE ]; then
+    echo "Temporarily disabling /etc/bash.bashrc for LFS..."
+    sudo mv /etc/bash.bashrc /etc/bash.bashrc.NOUSE
+fi
+
 if [ "$(readlink -f /bin/sh)" != "/usr/bin/bash" ]; then
     echo "Switching /bin/sh to Bash for LFS..."
     sudo ln -sf bash /bin/sh
