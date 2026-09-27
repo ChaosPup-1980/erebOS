@@ -80,3 +80,25 @@ Cross-toolchain sanity checks confirmed:
 The initial erebOS cross-toolchain is functional.
 
 Binutils, GCC, Linux API headers, and Glibc are correctly integrated and targeting the erebOS filesystem.
+
+## Libstdc++ — Pass 1
+
+Version: GCC 16.2.0 libstdc++
+
+Result: PASS
+
+Install timing:
+
+- real: 0m1.990s
+- user: 0m0.885s
+- sys: 0m1.298s
+
+Verified:
+
+- libstdc++.so.6.0.36 installed
+- C++ headers installed under the temporary toolchain
+- libtool .la archives removed as required
+
+## Chapter 5 Status
+
+LFS Chapter 5 — Compiling a Cross-Toolchain: COMPLETE.
