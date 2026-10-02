@@ -123,3 +123,24 @@ Verification confirmed no matching temporary toolchain files or `.la` files rema
 LFS Chapter 9 — System Configuration.
 
 Before beginning Chapter 9, create and verify an offline Chapter 8 recovery snapshot.
+
+## Recovery snapshot
+
+A complete offline recovery snapshot was created after Chapter 8:
+
+    backups/erebOS-ch8-basic-system.img
+
+Filesystem integrity was checked offline with:
+
+    e2fsck -fn
+
+Result:
+
+    PASS
+
+Snapshot storage:
+
+- logical size: 64 GB
+- actual disk usage: approximately 22 GB
+
+This snapshot represents the known-good erebOS system after completion of LFS Chapter 8 and before beginning Chapter 9.
