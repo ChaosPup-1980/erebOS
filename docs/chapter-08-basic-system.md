@@ -4,13 +4,15 @@ Base: Linux From Scratch 13.1-systemd
 
 ## Status
 
-Chapter 8 is in progress.
+Chapter 8 is complete.
 
-Current checkpoint:
+Final checkpoint:
 
-- Completed through Binutils 2.47
-- 20 Chapter 8 packages installed
-- Next package: GMP 6.3.0
+- Completed through E2fsprogs 1.47.4
+- All Chapter 8 package builds completed
+- Final Chapter 8 cleanup completed
+- Optional stripping deliberately skipped
+- Next stage: LFS Chapter 9 — System Configuration
 
 ## Completed packages
 
@@ -81,6 +83,43 @@ Installed ld, as and objdump report GNU Binutils 2.47.20260726.
 
 Static Binutils libraries were removed according to the LFS instructions.
 
+## Chapter 8 completion
+
+Chapter 8 — Installing Basic System Software — completed successfully on 2026-10-02.
+
+All Chapter 8 packages were built, tested where applicable, installed, and verified.
+
+### erebOS-specific decisions
+
+- Build parallelism remained limited to `MAKEFLAGS=-j4` to control sustained thermal load on the Acer Nitro build host.
+- Libffi 3.8.0 was built with `--with-gcc-arch=haswell`, targeting the MacBookAir6,2 rather than the Nitro host CPU.
+- GRUB 2.14 was built for `x86_64-efi` only, matching the MacBook Air target. No bootloader was installed to a physical disk during Chapter 8.
+- The optional Chapter 8 stripping stage was deliberately skipped. Debugging symbols are being retained while erebOS remains under active development and hardware bring-up.
+
+### Notable expected test results
+
+- Findutils 4.11.0: `test-regex-el` was the sole known test failure.
+- Groff 1.24.1: `neqn-smoke-test.sh` was the sole known test failure.
+- Tar 1.35: test 233, `capabilities: binary store/restore`, was the sole known failure.
+- Vim 9.2.1025: test suite completed with `FAILED: 0`.
+- Systemd 261.2: 1829 tests passed, 32 skipped, with only the documented chroot failure `systemd:test-namespace`.
+- Procps-ng 4.0.7: 8 tests passed, 0 failed.
+- Util-linux 2.42.2: all 367 tests passed.
+- E2fsprogs 1.47.4: 393 tests passed; `m_assume_storage_prezeroed` was the sole documented expected failure.
+
+### Final cleanup
+
+The Chapter 8 cleanup was completed:
+
+- `/tmp` contents removed
+- obsolete libtool `.la` files removed
+- temporary LFS cross-toolchain remnants removed
+- temporary `tester` account removed
+
+Verification confirmed no matching temporary toolchain files or `.la` files remained.
+
 ## Next step
 
-Resume Chapter 8 with GMP 6.3.0.
+LFS Chapter 9 — System Configuration.
+
+Before beginning Chapter 9, create and verify an offline Chapter 8 recovery snapshot.
