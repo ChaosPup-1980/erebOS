@@ -4,24 +4,24 @@ Base: Linux From Scratch 13.1-systemd
 
 ## Status
 
-Chapter 10 is partially complete.
+Chapter 10 is complete.
 
-Completed on the build host:
+Completed:
 
 - target filesystem layout defined
-- /etc/fstab created
+- `/etc/fstab` created
 - Linux 7.1.8 configured for the MacBookAir6,2
 - kernel and modules built successfully
-- kernel artifacts installed under /boot
+- kernel artifacts installed under `/boot`
 - kernel configuration preserved in Git
-- GRUB 2.14 x86_64 EFI support verified
-
-Deferred until deployment to the physical MacBook Air:
-
-- creation of the real GPT partition table
-- creation and mounting of the real EFI System Partition
-- final GRUB installation
-- final grub.cfg using the real root partition PARTUUID
+- MacBook Air internal SSD partitioned using GPT
+- EFI System Partition created as `/dev/sda1`
+- erebOS root partition created as `/dev/sda2`
+- erebOS filesystem deployed to the physical target
+- GRUB 2.14 installed for x86_64 EFI
+- removable/fallback EFI boot path created
+- final GRUB configuration created using the real root PARTUUID
+- first native MacBookAir6,2 boot completed successfully
 
 ## Target storage layout
 
@@ -263,84 +263,105 @@ Architecture/platform:
 
     x86_64 EFI
 
-Verified module directory:
+Target EFI System Partition:
 
-    /usr/lib/grub/x86_64-efi
+    /dev/sda1
 
-Required modules confirmed present:
+Target root partition:
 
-    part_gpt.mod
-    ext2.mod
-    linux.mod
+    /dev/sda2
 
-No GRUB installation was performed against the Acer Nitro or the temporary
-build image.
+GRUB was installed on the physical MacBook Air using the removable EFI
+fallback path.
 
-## Why final GRUB installation is deferred
+The installation completed successfully and created:
 
-The current /boot/efi directory is only a mount point inside the erebOS
-build filesystem.
+    /boot/efi/EFI/BOOT/BOOTX64.EFI
 
-The real FAT32 EFI System Partition does not exist until the MacBook Air
-internal SSD is partitioned.
+This avoids dependence on firmware NVRAM boot-entry creation and provides
+the standard UEFI removable-media fallback path.
 
-Running grub-install during the Nitro-hosted build would therefore not
-install GRUB to the real target ESP.
+## GRUB deployment
 
-The final bootloader installation will be performed only after the target
-SSD exists and the ESP is mounted at /boot/efi.
+During the Nitro-hosted build, final GRUB installation was deliberately
+deferred because the real MacBook Air EFI System Partition did not yet
+exist.
+
+After deployment to the physical MacBook Air, the real ESP was mounted at:
+
+    /boot/efi
+
+GRUB installation was then performed against the actual target filesystem
+rather than the temporary build image.
+
+This preserved the rule that no bootloader installation would be attempted
+against the Acer Nitro or an artificial ESP during the hosted build.
 
 ## Target deployment sequence
 
-The planned deployment sequence is:
+The planned deployment procedure was completed on the physical
+MacBookAir6,2.
 
-1. Boot a suitable Linux environment on the MacBook Air.
-2. Confirm the internal SSD device identity before destructive changes.
-3. Create a GPT partition table.
-4. Create a 512 MiB EFI System Partition.
-5. Create an ext4 root partition using the remaining space.
-6. Label the filesystems:
+Final target layout:
 
-       EREBOS_EFI
-       erebOS-root
+    /dev/sda1    EFI System Partition
+    /dev/sda2    erebOS root filesystem
 
-7. Deploy the erebOS root filesystem to the ext4 partition.
-8. Mount the root filesystem.
-9. Mount the EFI System Partition at /boot/efi.
-10. Determine the actual root partition PARTUUID.
-11. Enter the deployed erebOS environment.
-12. Install GRUB for x86_64 EFI using the removable/fallback boot path.
-13. Create grub.cfg using the real root PARTUUID.
-14. Reboot and perform the first native MacBookAir6,2 boot.
+Filesystem labels:
 
-The exact target disk device name must be verified before any partitioning
-or formatting commands are issued.
+    EREBOS_EFI
+    erebOS-root
+
+Deployment included:
+
+1. confirming the internal SSD identity before destructive changes
+2. creating the GPT partition table
+3. creating the EFI System Partition
+4. creating the ext4 root partition
+5. deploying the erebOS root filesystem
+6. mounting the ESP at `/boot/efi`
+7. recording the actual root partition identifiers
+8. installing GRUB for x86_64 EFI using the removable/fallback path
+9. creating the final GRUB configuration
+10. rebooting into erebOS natively
+
+The first native boot reached the `erebos login` prompt successfully.
 
 ## GRUB root identification
 
-The final kernel command line will use the actual target root partition
-PARTUUID rather than a guessed device name.
+The deployed erebOS root filesystem is:
 
-Conceptually:
+    /dev/sda2
 
-    root=PARTUUID=<actual-root-partition-partuuid>
+Root filesystem UUID:
 
-GRUB configuration should also search for the erebOS root filesystem rather
-than relying on fixed GRUB disk numbering.
+    03f54e54-7874-485e-b23d-22d41b138918
 
-The real PARTUUID will only be recorded after the MacBook SSD has been
-partitioned.
+Root partition PARTUUID:
+
+    4bf7a06c-5108-426e-9522-bcb536ec1126
+
+The final kernel command line identifies the root filesystem using the real
+target PARTUUID rather than relying on a device name:
+
+    root=PARTUUID=4bf7a06c-5108-426e-9522-bcb536ec1126
+
+This avoids dependence on Linux block-device enumeration order.
 
 ## Current checkpoint
 
-Chapter 10 kernel work is complete.
+Chapter 10 is complete.
 
-The remaining Chapter 10 work is target-dependent and intentionally deferred
-until deployment to the physical MacBook Air.
+The MacBookAir6,2 now boots erebOS natively from its internal SSD using the
+installed Linux 7.1.8 kernel and GRUB 2.14 EFI bootloader.
 
-The current erebOS image now contains a complete base userspace, system
-configuration, Linux 7.1.8 kernel, and kernel modules suitable for beginning
-the target deployment phase.
+The first native boot successfully reached the local `erebos login` prompt.
+
+Subsequent validation has also confirmed working wired networking and
+remote administration over OpenSSH.
+
+Further hardware enablement and server functionality now belong to the
+post-LFS/BLFS phase rather than Chapter 10.
 
 ## Recovery snapshot
 

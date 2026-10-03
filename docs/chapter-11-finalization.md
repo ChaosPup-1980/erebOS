@@ -4,13 +4,23 @@ Base: Linux From Scratch 13.1-systemd
 
 ## Status
 
-Chapter 11 build-side finalization is complete.
+Chapter 11 is complete.
 
-Completed on 2026-10-03.
+Build-side finalization was completed on 2026-10-03.
 
-The normal LFS final reboot is intentionally deferred because erebOS is
-being built inside a filesystem image on an Acer Nitro build host and will
-be deployed to a 2014 MacBook Air before its first native boot.
+The completed LFS base system has since been deployed to the physical
+MacBookAir6,2 and successfully booted natively from its internal SSD.
+
+Post-deployment validation has confirmed:
+
+- successful local boot to the `erebos login` prompt
+- working wired networking
+- working OpenSSH remote administration
+- successful reboot with networking and `sshd` returning automatically
+- key-only SSH access from the Acer Nitro administration workstation
+
+The project has therefore moved beyond the LFS construction phase and into
+post-LFS/BLFS hardware enablement and server configuration.
 
 ## System identity
 
@@ -101,8 +111,11 @@ The Intel i915 module reports firmware names for newer Intel graphics
 generations, but these are not required for the MacBookAir6,2 Haswell
 graphics first-boot path.
 
-Broadcom BCM4360 Wi-Fi support remains deferred until after wired
-networking and SSH are operational.
+Broadcom BCM4360 Wi-Fi support remains deferred to the BLFS/post-LFS
+hardware-enablement phase.
+
+The original prerequisite for this work has now been satisfied: wired
+networking and SSH are operational and have survived a complete reboot.
 
 ## Wired recovery adapter
 
@@ -127,7 +140,10 @@ in the erebOS kernel.
 
 ## First-boot networking path
 
-Planned path:
+The planned wired first-boot networking path has now been validated on the
+physical MacBook Air.
+
+Functional path:
 
     MacBook Air USB
         -> ASIX AX88179
@@ -135,29 +151,42 @@ Planned path:
         -> systemd-networkd
         -> IPv4 DHCP
         -> wired home-lab network
+        -> OpenSSH
 
-Wired Ethernet remains the preferred initial administration and recovery
-path.
+During initial target validation the MacBook Air received:
 
-Wi-Fi will be configured later through BLFS after the base system has
-booted successfully.
+    192.168.1.231
+
+The Acer Nitro successfully reached the target over the LAN and established
+authenticated SSH sessions.
+
+Wired Ethernet remains the preferred administration and recovery path.
+
+Broadcom BCM4360 Wi-Fi remains optional secondary networking work for the
+BLFS/post-LFS phase.
 
 ## Next step
 
-Prepare a final offline recovery snapshot of the completed LFS base system.
+The Linux From Scratch base system is complete and boots successfully on the
+target MacBookAir6,2.
 
-After that, begin deployment to the dedicated MacBook Air internal SSD:
+The next project phase is BLFS/post-LFS server enablement.
 
-1. identify the target SSD with certainty
-2. create the GPT layout
-3. create the EFI System Partition
-4. create and label the ext4 root filesystem
-5. deploy the erebOS filesystem
-6. mount the real ESP
-7. determine the real root PARTUUID
-8. install GRUB to the MacBook Air
-9. create the final grub.cfg
-10. perform the first native erebOS boot
+Immediate priorities are:
+
+1. preserve the completed native-boot milestone in project documentation
+2. continue using wired Ethernet and key-only SSH as the primary
+   administration path
+3. add only the BLFS components required for the home-lab server role
+4. configure Broadcom BCM4360 Wi-Fi as optional secondary networking
+5. establish time synchronisation, firewall policy, logging and monitoring
+6. define backup, recovery and update procedures
+7. retain the local console as a recovery path while the system matures
+
+OpenSSH installation, authentication policy and reboot validation are
+documented separately in:
+
+    docs/remote-administration.md
 
 ## Pre-deployment recovery snapshot
 
