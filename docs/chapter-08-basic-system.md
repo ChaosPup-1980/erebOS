@@ -144,3 +144,53 @@ Snapshot storage:
 - actual disk usage: approximately 22 GB
 
 This snapshot represents the known-good erebOS system after completion of LFS Chapter 8 and before beginning Chapter 9.
+
+## Post-build target-hardware validation: GMP portability repair
+
+During later validation on the MacBookAir6,2 target, GCC 16.2.0 failed while compiling OpenSSH 10.5p1 with:
+
+    cc1: internal compiler error: Illegal instruction
+
+The failure reproduced with a minimal floating-point compilation test on the MacBook Air, while the same compiler worked on the Acer Nitro build host.
+
+Investigation showed that the installed GMP 6.3.0 header contained host-specific compiler tuning:
+
+    __GMP_CFLAGS = "-mtune=skylake -march=broadwell"
+
+This made the Chapter 8 GMP build unsuitable for the older Haswell-class MacBook Air target.
+
+### Repair
+
+GMP 6.3.0 was rebuilt portably with:
+
+    --host=none-linux-gnu
+
+The rebuilt GMP reported:
+
+    __GMP_CC = "gcc"
+    __GMP_CFLAGS = "-O2 -pedantic"
+
+Its test suite completed with:
+
+    199 PASS
+
+Because MPFR and MPC depend on GMP, both were rebuilt against the repaired library:
+
+- MPFR 4.2.2: 198/198 tests passed
+- MPC 1.4.1: 75/75 tests passed
+
+The repaired GMP, MPFR and MPC libraries, headers and pkg-config metadata were transferred to the MacBook Air and the dynamic linker cache refreshed.
+
+### Target verification
+
+On the MacBook Air:
+
+- GCC successfully compiled and executed the minimal floating-point test that had previously caused the illegal-instruction failure.
+- GCC's `cc1` was verified to load GMP, MPFR and MPC from `/usr/lib`.
+- OpenSSH 10.5p1 `misc.o`, which had previously triggered the compiler failure, compiled successfully.
+- The complete OpenSSH build completed successfully.
+- The OpenSSH regression suite completed successfully.
+
+Conclusion:
+
+The failure was caused by CPU-specific optimisation leaking from the build host into GMP. Packages that form part of the compiler runtime dependency chain must remain portable across the Nitro build host and the MacBook Air production target unless target-specific optimisation is explicitly intentional and verified.
