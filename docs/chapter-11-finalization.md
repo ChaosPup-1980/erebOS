@@ -158,3 +158,39 @@ After that, begin deployment to the dedicated MacBook Air internal SSD:
 8. install GRUB to the MacBook Air
 9. create the final grub.cfg
 10. perform the first native erebOS boot
+
+## Pre-deployment recovery snapshot
+
+A final offline recovery snapshot was created after completion of the LFS
+base system and all pre-deployment checks:
+
+    backups/erebOS-predeployment.img
+
+The source image was checked offline before copying:
+
+    e2fsck -fn build/erebOS-lfs.img
+
+Result:
+
+    PASS
+
+The recovery snapshot itself was then checked independently:
+
+    e2fsck -fn backups/erebOS-predeployment.img
+
+Result:
+
+    PASS
+
+Filesystem summary:
+
+    erebOS-lfs: 357478/4194304 files (0.1% non-contiguous),
+    2816477/16777216 blocks
+
+Snapshot storage:
+
+- logical size: 64 GB
+- actual disk usage: approximately 23 GB
+
+This is the canonical known-good recovery point immediately before
+deployment to the physical MacBookAir6,2.
