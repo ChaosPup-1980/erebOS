@@ -341,3 +341,39 @@ until deployment to the physical MacBook Air.
 The current erebOS image now contains a complete base userspace, system
 configuration, Linux 7.1.8 kernel, and kernel modules suitable for beginning
 the target deployment phase.
+
+## Recovery snapshot
+
+A complete offline recovery snapshot was created after the Chapter 10
+kernel milestone:
+
+    backups/erebOS-ch10-kernel.img
+
+Filesystem integrity was checked offline with:
+
+    e2fsck -fn
+
+Result:
+
+    PASS
+
+Snapshot storage:
+
+- logical size: 64 GB
+- actual disk usage: approximately 23 GB
+
+Filesystem summary:
+
+    erebOS-lfs: 357475/4194304 files (0.1% non-contiguous),
+    2816474/16777216 blocks
+
+This snapshot represents the known-good erebOS system after:
+
+- completion of LFS Chapter 9
+- creation of the target /etc/fstab
+- successful Linux 7.1.8 build for MacBookAir6,2
+- installation of kernel modules and boot artifacts
+- verification of GRUB 2.14 x86_64 EFI support
+
+Final GRUB installation remains intentionally deferred until the real
+MacBook Air EFI System Partition exists.
